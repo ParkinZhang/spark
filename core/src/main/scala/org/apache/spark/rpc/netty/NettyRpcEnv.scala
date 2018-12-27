@@ -520,6 +520,7 @@ private[netty] class NettyRpcEndpointRef(
   override def name: String = endpointAddress.name
 
   override def ask[T: ClassTag](message: Any, timeout: RpcTimeout): Future[T] = {
+    require(message != null, "Message is null")
     nettyEnv.ask(new RequestMessage(nettyEnv.address, this, message), timeout)
   }
 
